@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crowd Status</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+        }
+        .status {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Crowd Status</h1>
+        <div class="status">
+            {% if max_crowd > 0 %}
+                Maximum Crowd: {{ max_crowd }}
+            {% else %}
+                No crowd detected yet.
+            {% endif %}
+        </div>
+        <p>
+    </div>
+</body>
+</html>
