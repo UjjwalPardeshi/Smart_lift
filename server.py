@@ -1,4 +1,5 @@
 import cv2
+import time as t
 import numpy as np
 from openvino.runtime import Core
 import socket
@@ -32,7 +33,6 @@ def inference():
         while True:
             if choice.lower() != "y":
                 ret, frame = cap.read()
-
             resized_image = cv2.resize(src=frame, dsize=(input_layer.shape[3], input_layer.shape[2]))
             input_data = np.expand_dims(np.transpose(resized_image, (2, 0, 1)), 0).astype(np.float32)
             request = compiled_model.create_infer_request()
@@ -68,9 +68,6 @@ def inference():
                     cap.release()
                 cv2.destroyAllWindows()
                 break
-def clearbo():
-    box = [0]
-clearbox = threading.Thread(target=clearbo, name="box")
 infr = threading.Thread(target=inference, name="inference")
 infr.start()
 while True:
@@ -81,7 +78,6 @@ while True:
         print(max(box))
         print("Sending number of people:", numberofpeople)
         connection.sendall(str(numberofpeople).encode())
-        clearbox.start()
-        clearbox.join()
+        box = [0]
     finally:
         connection.close()
