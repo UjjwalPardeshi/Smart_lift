@@ -6,7 +6,7 @@ import time as t
 import threading
 # Initialize OpenVINO API
 core = Core()
-box = []
+box = [0]
 
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server_address = ('0.0.0.0', 12345)
@@ -25,7 +25,7 @@ output_layer = compiled_model.output(0)  # get outputs layer
 def inference():
     while True:
         # Receive choice from client
-        choice = "y"
+        choice = "n"
         # Load source image or capture video based on client choice
         if choice.lower() == "y":
             source = 'samplecroud.png'
@@ -89,7 +89,10 @@ while True:
         print("Connection from", client_address)
         # Generate a random number between 1 and 30
         # random_number = random.randint(1, 30)
-        random_number = max(box)
+        if box == []:
+            random_number = 0
+        else:
+            random_number = max(box)
         print(max(box))
         print("Sending random number:", random_number)
 
