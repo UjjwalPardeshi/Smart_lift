@@ -9,7 +9,7 @@ server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server_address = ('0.0.0.0', 12345)
 server_socket.bind(server_address)
 server_socket.listen(1)
-
+breaker = False
 boxlist = []
 print("Server is running...")
 detection_model_xml = "person-detection-retail-0013.xml"
@@ -51,8 +51,7 @@ def inference():
                     ymax = int(detection[6] * frame_height)
                     boxes.append([xmin, ymin, xmax, ymax])
                     cv2.rectangle(frame, (xmin, ymin), (xmax, ymax), (0, 255, 255), 3)
-                    cv2.putText(frame, f"Person {len(boxes)}", (xmin, ymin - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.7,
-                                (0, 0, 0), 2)
+                    cv2.putText(frame, f"Person {len(boxes)}", (xmin, ymin - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.7,(0, 0, 0), 2)
                     boxlist.append(len(boxes))
                     max_boxlist = max(boxlist, default=0)  # Get the maximum value of boxlist
                     if max_boxlist >= 20:
@@ -73,21 +72,13 @@ def inference():
 infr = threading.Thread(target=inference, name="inference")
 infr.start()
 while True:
-    # Wait for a connection
     connection, client_address = server_socket.accept()
-
     try:
         print("Connection from", client_address)
-        if box == [] or box == [0]:
-            numberofpeople = 0
-        else:
-            numberofpeople = max(box)
+        numberofpeople = max(box)
         print(max(box))
         print("Sending number of people:", numberofpeople)
-        box = [0]
-        # Send the random number as a string
         connection.sendall(str(numberofpeople).encode())
+        box = [0]
     finally:
-        # Clean up the connection
         connection.close()
-
