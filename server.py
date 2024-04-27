@@ -68,7 +68,9 @@ def inference():
                     cap.release()
                 cv2.destroyAllWindows()
                 break
-
+def clearbo():
+    box = [0]
+clearbox = threading.Thread(target=clearbo, name="box")
 infr = threading.Thread(target=inference, name="inference")
 infr.start()
 while True:
@@ -79,6 +81,7 @@ while True:
         print(max(box))
         print("Sending number of people:", numberofpeople)
         connection.sendall(str(numberofpeople).encode())
-        box = [0]
+        clearbox.start()
+        clearbox.join()
     finally:
         connection.close()
