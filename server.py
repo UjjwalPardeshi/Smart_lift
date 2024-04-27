@@ -2,20 +2,16 @@ import cv2
 import numpy as np
 from openvino.runtime import Core
 import socket
-import time as t
 import threading
-# Initialize OpenVINO API
 core = Core()
 box = [0]
-
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server_address = ('0.0.0.0', 12345)
 server_socket.bind(server_address)
 server_socket.listen(1)
 
-
+boxlist = []
 print("Server is running...")
-# Model Loading
 detection_model_xml = "person-detection-retail-0013.xml"
 detection_model = core.read_model(model=detection_model_xml)
 device = "CPU"  # if you have NCS2 use "MYRIAD"
@@ -24,9 +20,7 @@ input_layer = compiled_model.input(0)  # Get input layer
 output_layer = compiled_model.output(0)  # get outputs layer
 def inference():
     while True:
-        # Receive choice from client
         choice = "n"
-        # Load source image or capture video based on client choice
         if choice.lower() == "y":
             source = 'samplecroud.png'
             frame = cv2.imread(source)
@@ -34,7 +28,6 @@ def inference():
             source = 0
             cap = cv2.VideoCapture(source)
 
-        boxlist = []  # Initialize boxlist for each connection
         croud = "unknown"
         while True:
             if choice.lower() != "y":
@@ -70,7 +63,6 @@ def inference():
                         croud = "Low"
                     box.append(max_boxlist)
             cv2.imshow('person detection demo', frame)
-            t.sleep(1)
             key = cv2.waitKey(1)
             if key in {ord('q'), ord('Q'), 27}:
                 if choice.lower() != "y":
@@ -80,25 +72,21 @@ def inference():
 
 infr = threading.Thread(target=inference, name="inference")
 infr.start()
-
 while True:
     # Wait for a connection
     connection, client_address = server_socket.accept()
 
     try:
         print("Connection from", client_address)
-        # Generate a random number between 1 and 30
-        # random_number = random.randint(1, 30)
-        if box == []:
-            random_number = 0
+        if box == [] or box == [0]:
+            numberofpeople = 0
         else:
-            random_number = max(box)
+            numberofpeople = max(box)
         print(max(box))
-        print("Sending random number:", random_number)
-
+        print("Sending number of people:", numberofpeople)
+        box = [0]
         # Send the random number as a string
-        connection.sendall(str(random_number).encode())
-
+        connection.sendall(str(numberofpeople).encode())
     finally:
         # Clean up the connection
         connection.close()
