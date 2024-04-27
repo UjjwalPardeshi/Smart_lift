@@ -30,7 +30,7 @@ while True:
 
     # Receive choice from client
     choice = client_socket.recv(1024).decode()
-
+    choice = "n"
     # Load source image or capture video based on client choice
     if choice.lower() == "y":
         source = 'samplecroud.png'

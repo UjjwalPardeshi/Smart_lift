@@ -12,6 +12,7 @@ public class ipbutton : MonoBehaviour
         if (ippage.activeInHierarchy)
         {
             Debug.Log("No, IP Page is active");
+            ippage.SetActive(false);
         }
         else
         {

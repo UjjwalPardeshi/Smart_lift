@@ -7,9 +7,10 @@ using UnityEngine;
 public class ReadIp : MonoBehaviour
 {
     public GameObject connecthandel;
+    public spawner spa;
     private string input;
     public string ipfromreadip;
-    
+
     private ConnectionHandler hand; 
     // Start is called before the first frame update
     void Start()
@@ -18,11 +19,6 @@ public class ReadIp : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void ReadStringInput(string s)
     {
         input = s;

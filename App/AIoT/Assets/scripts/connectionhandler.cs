@@ -8,12 +8,15 @@ public class ConnectionHandler : MonoBehaviour
     public GameObject numberText;
     public bool isConnected;
     public GameObject bitconnect;
+    public spawner spa;
 
     private ReadIp ipgiver;
     public string ip = "localhost";
     public TMP_Text textw;
 
+    public int sentint;
     TcpClient client;
+    
     NetworkStream stream;
 
     void Start()
@@ -25,14 +28,13 @@ public class ConnectionHandler : MonoBehaviour
 
     public void ConnectToServer()
     {
+        spa.killbande(); 
         ip = ipgiver.ipfromreadip;
         if (ip == "" || ip == " ")
         {
             ip = "localhost";
         }
-
         Debug.Log("used ip: " + ip + 12345);
-
         // Replace with Android-specific socket initialization
         try
         {
@@ -45,12 +47,18 @@ public class ConnectionHandler : MonoBehaviour
         {
             Debug.LogWarning("SocketException: " + e);
             isConnected = false;
+            spa.SpawnLine(isConnected);
         }
     }
 
     void Update()
     {
         if (isConnected) { ReceiveNumber(); }
+
+        if (isConnected == false)
+        {
+            textw.text = "Disconnected";
+        }
     }
 
     void ReceiveNumber()
@@ -65,22 +73,24 @@ public class ConnectionHandler : MonoBehaviour
         string wow = "Unknown";
         if (int.TryParse(receivedData, out randomNumber))
         {
+            sentint = randomNumber;
             if (randomNumber <= 10)
             {
-                wow = "low";
+                wow = "Low";
             }
             else if (10 < randomNumber && randomNumber <= 20)
             {
-                wow = "medium";
+                wow = "Medium";
             }
             else if (20 < randomNumber)
             {
-                wow = "high";
+                wow = "High";
             }
 
             string printToResult;
-            printToResult = wow + " " + randomNumber;
+            printToResult = wow + "\n" + randomNumber;
             Debug.Log(printToResult);
+            spa.SpawnLine(isConnected);
             textw.text = printToResult;
         }
     }
