@@ -54,8 +54,6 @@ def inference():
                     label = int(detection[1])
                     conf = float(detection[2])
                     if conf > 0.76:
-                        print(input_layer.shape[3])
-                        print(input_layer.shape[2])
                         xmin = int(detection[3] * frame_width)
                         ymin = int(detection[4] * frame_height)
                         xmax = int(detection[5] * frame_width)
@@ -72,7 +70,7 @@ def inference():
                         elif max_boxlist <= 10:
                             croud = "Low"
                         box.append(max_boxlist)
-                cv2.imshow('person detection demo', frame)
+                #cv2.imshow('person detection demo', frame)
                 key = cv2.waitKey(1)
                 if key in {ord('q'), ord('Q'), 27}:
                     #if choice.lower() != "y":
