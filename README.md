@@ -9,8 +9,10 @@ This project proposes an innovative solution to address the challenge of managin
 - Completely wireless solution, easily accessible within SRM University via the app by connecting to SRMIST WiFi.
 
 ## Screenshots
+![System Archeitecture diagram](![image](![image](https://github.com/UjjwalPardeshi/realtime_persondetection/assets/113883490/95c0a835-ba92-4949-a29d-b7278957bf52))
 
-![Realtime detection on Crowd_1](https://github.com/UjjwalPardeshi/realtime_persondetection/assets/113883490/eede6ee6-a0a8-44ca-ad79-892aedbbe687)
+![Realtime detection on Crowd_1](![image](https://github.com/UjjwalPardeshi/realtime_persondetection/assets/113883490/6d6a4f38-b6bd-4406-a08f-bcc3fe1cac17)
+
 
 ![Realtime detection on Crowd_2](https://github.com/UjjwalPardeshi/realtime_persondetection/assets/113883490/c1f535b3-b71d-4e8b-9220-4402c1252607)
 
