@@ -1,7 +1,7 @@
 import socket
 import time
 # Create a client socket
-server_ip = '10.3.114.36'  # Replace with the IP address of the server
+server_ip = '192.168.29.113'  # Replace with the IP address of the server
 port = 12345
 
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
