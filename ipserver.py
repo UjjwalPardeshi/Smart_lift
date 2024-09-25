@@ -30,7 +30,7 @@ def inference():
                 source = 'samplecroud.png'
                 frame = cv2.imread(source)
             else:
-                url = "http://192.168.29.120:8080/shot.jpg"
+                url = "http://10.9.0.41:8080/shot.jpg"
                 # cap = cv2.VideoCapture(source)
 
             croud = "unknown"
