@@ -1,5 +1,7 @@
 # Smart Lift Occupancy Detection and Visualization System for College Campuses
 
+Crowd Detection Dashboard - https://smart-lift-d68a6.web.app/
+
 This project introduces an innovative solution for managing lift crowds in college campuses. By utilizing existing camera infrastructure and advanced technology, our tool integrates OpenVINO person detection models and Unity3D app development to create an interactive phone application. This application provides real-time visualization of lift crowds using stylized 3D models of students, empowering users to make informed decisions about elevator usage.
 
 ## Features
